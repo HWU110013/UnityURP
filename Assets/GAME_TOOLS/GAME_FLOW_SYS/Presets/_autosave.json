@@ -1,0 +1,153 @@
+{
+    "version": "1.0",
+    "generator": "Unity",
+    "nodes": [
+        {
+            "id": "97edbcba-0e36-4a42-873e-fdd6cb374155",
+            "sceneName": "START",
+            "type": "start",
+            "position": {
+                "x": 200.0,
+                "y": -517.0
+            },
+            "isStartNode": false,
+            "description": "",
+            "tags": []
+        },
+        {
+            "id": "4c7e83b1-1da1-4ca5-bf4e-7017bd23140e",
+            "sceneName": "Start",
+            "type": "scene",
+            "position": {
+                "x": 400.0,
+                "y": -517.0
+            },
+            "isStartNode": true,
+            "description": "",
+            "tags": []
+        },
+        {
+            "id": "72cb219b-5e6a-4184-952d-1214a0e7826b",
+            "sceneName": "Menu",
+            "type": "scene",
+            "position": {
+                "x": 399.0,
+                "y": -217.0
+            },
+            "isStartNode": false,
+            "description": "",
+            "tags": []
+        },
+        {
+            "id": "ae545143-039c-40ac-ab31-99cb23c6e5f6",
+            "sceneName": "Stage01",
+            "type": "scene",
+            "position": {
+                "x": 662.0,
+                "y": -221.0
+            },
+            "isStartNode": false,
+            "description": "",
+            "tags": []
+        },
+        {
+            "id": "1bff3215-9725-40cb-8dc2-8178df2cce24",
+            "sceneName": "Stage02",
+            "type": "scene",
+            "position": {
+                "x": 663.0,
+                "y": -519.0
+            },
+            "isStartNode": false,
+            "description": "",
+            "tags": []
+        }
+    ],
+    "edges": [
+        {
+            "id": "f5249e65-e843-432b-9843-a131ceb9fcd9",
+            "source": "97edbcba-0e36-4a42-873e-fdd6cb374155",
+            "target": "4c7e83b1-1da1-4ca5-bf4e-7017bd23140e",
+            "label": "",
+            "data": {
+                "condition": "",
+                "action": ""
+            }
+        },
+        {
+            "id": "599779c8-24ae-4d7d-aac1-49f165685f47",
+            "source": "4c7e83b1-1da1-4ca5-bf4e-7017bd23140e",
+            "target": "72cb219b-5e6a-4184-952d-1214a0e7826b",
+            "label": "",
+            "data": {
+                "condition": "",
+                "action": ""
+            }
+        },
+        {
+            "id": "9c3d3a0c-e120-47e7-864a-dc320fcba87b",
+            "source": "72cb219b-5e6a-4184-952d-1214a0e7826b",
+            "target": "4c7e83b1-1da1-4ca5-bf4e-7017bd23140e",
+            "label": "",
+            "data": {
+                "condition": "",
+                "action": ""
+            }
+        },
+        {
+            "id": "ea9ce634-fb01-4a43-9a2c-0b6464494398",
+            "source": "72cb219b-5e6a-4184-952d-1214a0e7826b",
+            "target": "ae545143-039c-40ac-ab31-99cb23c6e5f6",
+            "label": "",
+            "data": {
+                "condition": "",
+                "action": ""
+            }
+        },
+        {
+            "id": "8409f66c-8f06-4f58-a39e-2d8487c96515",
+            "source": "ae545143-039c-40ac-ab31-99cb23c6e5f6",
+            "target": "1bff3215-9725-40cb-8dc2-8178df2cce24",
+            "label": "",
+            "data": {
+                "condition": "",
+                "action": ""
+            }
+        },
+        {
+            "id": "321a1305-1776-450b-9e62-d97c97a882e4",
+            "source": "1bff3215-9725-40cb-8dc2-8178df2cce24",
+            "target": "ae545143-039c-40ac-ab31-99cb23c6e5f6",
+            "label": "",
+            "data": {
+                "condition": "",
+                "action": ""
+            }
+        },
+        {
+            "id": "8a8b922d-8de4-4848-8847-a8cb21c1f9e3",
+            "source": "1bff3215-9725-40cb-8dc2-8178df2cce24",
+            "target": "4c7e83b1-1da1-4ca5-bf4e-7017bd23140e",
+            "label": "",
+            "data": {
+                "condition": "",
+                "action": ""
+            }
+        },
+        {
+            "id": "70e02898-a179-4eff-bee4-7169f730bd53",
+            "source": "ae545143-039c-40ac-ab31-99cb23c6e5f6",
+            "target": "4c7e83b1-1da1-4ca5-bf4e-7017bd23140e",
+            "label": "",
+            "data": {
+                "condition": "",
+                "action": ""
+            }
+        }
+    ],
+    "viewport": {
+        "x": 0.0,
+        "y": 0.0,
+        "zoom": 1.0
+    }
+}
