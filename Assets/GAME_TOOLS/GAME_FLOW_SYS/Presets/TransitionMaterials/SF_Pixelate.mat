@@ -33,7 +33,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _MaxPixelSize: 80
+    - _MaxPixelSize: 40
     - _MinPixelSize: 4
     - _Progress: 0
     m_Colors:

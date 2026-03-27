@@ -98,7 +98,7 @@ MonoBehaviour:
       - displayName: "\u6700\u5927\u50CF\u7D20\u683C"
         propertyName: _MaxPixelSize
         valueType: 0
-        floatValue: 80
+        floatValue: 40
         rangeMin: 8
         rangeMax: 256
         colorR: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
     action: 
     transition:
       type: 6
-      duration: 0.8
+      duration: 1.5
       color: {r: 0, g: 0, b: 0, a: 1}
       customMaterial: {fileID: 2100000, guid: 854859f11bbf9d748a4881ee73d6dbd8, type: 2}
       shaderOverrides:
@@ -136,7 +136,7 @@ MonoBehaviour:
       - displayName: "\u4E0D\u900F\u660E\u5EA6"
         propertyName: _Opacity
         valueType: 0
-        floatValue: 1
+        floatValue: 0.7
         rangeMin: 0
         rangeMax: 1
         colorR: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
       - displayName: "\u6C34\u6EF4\u5BC6\u5EA6"
         propertyName: _DropCount
         valueType: 0
-        floatValue: 30
+        floatValue: 20
         rangeMin: 3
         rangeMax: 30
         colorR: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
       - displayName: "\u626D\u66F2\u5F37\u5EA6"
         propertyName: _DistortStrength
         valueType: 0
-        floatValue: 0.1
+        floatValue: 0.02
         rangeMin: 0
         rangeMax: 0.1
         colorR: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
       - displayName: "\u6700\u5927\u50CF\u7D20\u683C"
         propertyName: _MaxPixelSize
         valueType: 0
-        floatValue: 80
+        floatValue: 40
         rangeMin: 8
         rangeMax: 256
         colorR: 0
@@ -367,7 +367,7 @@ MonoBehaviour:
       - displayName: "\u6495\u88C2\u5F37\u5EA6"
         propertyName: _TearStrength
         valueType: 0
-        floatValue: 0.06
+        floatValue: 0.1
         rangeMin: 0
         rangeMax: 0.2
         colorR: 0
@@ -380,7 +380,7 @@ MonoBehaviour:
       - displayName: "\u6495\u88C2\u689D\u6578"
         propertyName: _TearCount
         valueType: 0
-        floatValue: 8
+        floatValue: 30
         rangeMin: 2
         rangeMax: 30
         colorR: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
       - displayName: "\u6495\u88C2\u5F37\u5EA6"
         propertyName: _TearStrength
         valueType: 0
-        floatValue: 0.06
+        floatValue: 0.1
         rangeMin: 0
         rangeMax: 0.2
         colorR: 0
@@ -483,7 +483,7 @@ MonoBehaviour:
       - displayName: "\u6495\u88C2\u689D\u6578"
         propertyName: _TearCount
         valueType: 0
-        floatValue: 8
+        floatValue: 30
         rangeMin: 2
         rangeMax: 30
         colorR: 0
@@ -560,7 +560,7 @@ MonoBehaviour:
       - displayName: "\u6700\u5927\u50CF\u7D20\u683C"
         propertyName: _MaxPixelSize
         valueType: 0
-        floatValue: 80
+        floatValue: 40
         rangeMin: 8
         rangeMax: 256
         colorR: 0
@@ -598,7 +598,7 @@ MonoBehaviour:
       - displayName: "\u6700\u5927\u50CF\u7D20\u683C"
         propertyName: _MaxPixelSize
         valueType: 0
-        floatValue: 80
+        floatValue: 40
         rangeMin: 8
         rangeMax: 256
         colorR: 0

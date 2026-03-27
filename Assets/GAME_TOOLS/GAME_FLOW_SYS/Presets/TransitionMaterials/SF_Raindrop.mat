@@ -34,9 +34,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _BlurAmount: 0.0153125
-    - _DistortStrength: 0.1
-    - _DropCount: 30
-    - _Opacity: 1
+    - _DistortStrength: 0.02
+    - _DropCount: 20
+    - _Opacity: 0.7
     - _Progress: 0
     m_Colors:
     - _Color: {r: 0.6792453, g: 0, b: 0, a: 1}

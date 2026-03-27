@@ -38,8 +38,8 @@ Material:
     - _Opacity: 1
     - _Progress: 0
     - _RGBShift: 0.015
-    - _TearCount: 8
-    - _TearStrength: 0.06
+    - _TearCount: 30
+    - _TearStrength: 0.1
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
