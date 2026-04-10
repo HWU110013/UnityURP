@@ -31,8 +31,8 @@
             "sceneName": "Menu",
             "type": "scene",
             "position": {
-                "x": 399.0,
-                "y": -217.0
+                "x": 439.0,
+                "y": -149.0
             },
             "isStartNode": false,
             "description": "",
@@ -43,8 +43,8 @@
             "sceneName": "Stage01",
             "type": "scene",
             "position": {
-                "x": 662.0,
-                "y": -221.0
+                "x": 699.0,
+                "y": -147.0
             },
             "isStartNode": false,
             "description": "",
@@ -55,8 +55,20 @@
             "sceneName": "Stage02",
             "type": "scene",
             "position": {
-                "x": 663.0,
+                "x": 691.0,
                 "y": -519.0
+            },
+            "isStartNode": false,
+            "description": "",
+            "tags": []
+        },
+        {
+            "id": "2d82404c-875e-41ec-8017-6678036dd286",
+            "sceneName": "Stage00",
+            "type": "scene",
+            "position": {
+                "x": 243.0,
+                "y": -299.0
             },
             "isStartNode": false,
             "description": "",

@@ -40,7 +40,7 @@ MonoBehaviour:
     sceneName: Menu
     nodeType: 0
     sceneAsset: {fileID: 102900000, guid: 0d8a2672dae352e46b317fd65bfe4110, type: 3}
-    position: {x: 399, y: -217}
+    position: {x: 439, y: -149}
     isStartNode: 0
     connectedNodeIds:
     - 4c7e83b1-1da1-4ca5-bf4e-7017bd23140e
@@ -51,7 +51,7 @@ MonoBehaviour:
     sceneName: Stage01
     nodeType: 0
     sceneAsset: {fileID: 102900000, guid: 9369947189fba194b94a0dd110504e91, type: 3}
-    position: {x: 662, y: -221}
+    position: {x: 699, y: -147}
     isStartNode: 0
     connectedNodeIds:
     - 1bff3215-9725-40cb-8dc2-8178df2cce24
@@ -62,11 +62,20 @@ MonoBehaviour:
     sceneName: Stage02
     nodeType: 0
     sceneAsset: {fileID: 102900000, guid: 424f531b7ef3cd54993b7455bc27f10a, type: 3}
-    position: {x: 663, y: -519}
+    position: {x: 691, y: -519}
     isStartNode: 0
     connectedNodeIds:
     - ae545143-039c-40ac-ab31-99cb23c6e5f6
     - 4c7e83b1-1da1-4ca5-bf4e-7017bd23140e
+    description: 
+    tags: []
+  - id: 2d82404c-875e-41ec-8017-6678036dd286
+    sceneName: Stage00
+    nodeType: 0
+    sceneAsset: {fileID: 102900000, guid: a3cd0ec7a3da7fc4985f4446c0eda694, type: 3}
+    position: {x: 243, y: -299}
+    isStartNode: 0
+    connectedNodeIds: []
     description: 
     tags: []
   edges:
