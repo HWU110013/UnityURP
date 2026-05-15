@@ -3,13 +3,13 @@ Shader "CatzTools/SceneFlow/InkSpread"
 {
     Properties
     {
-        _Color ("墨色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Smoothness ("邊緣柔化", Range(0, 0.15)) = 0.04
-        _Distortion ("暈染不規則度", Range(0, 1)) = 0.5
-        _NoiseScale ("噪點縮放", Range(1, 20)) = 6
-        _CenterX ("中心 X", Range(0, 1)) = 0.5
-        _CenterY ("中心 Y", Range(0, 1)) = 0.5
+        _Color ("Ink Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Smoothness ("Smoothness", Range(0, 0.15)) = 0.04
+        _Distortion ("Distortion", Range(0, 1)) = 0.5
+        _NoiseScale ("Noise Scale", Range(1, 20)) = 6
+        _CenterX ("Center X", Range(0, 1)) = 0.5
+        _CenterY ("Center Y", Range(0, 1)) = 0.5
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

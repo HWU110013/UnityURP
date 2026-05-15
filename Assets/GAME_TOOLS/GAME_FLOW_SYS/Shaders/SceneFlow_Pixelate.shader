@@ -3,10 +3,10 @@ Shader "CatzTools/SceneFlow/Pixelate"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _MaxPixelSize ("最大像素格", Range(8, 256)) = 96
-        _ScreenTex ("擷取畫面（自動設定）", 2D) = "black" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _MaxPixelSize ("Pixel Size", Range(8, 256)) = 96
+        _ScreenTex ("Screen Capture (auto)", 2D) = "black" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

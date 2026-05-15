@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
+using CatzTools.GameFlow;
 
-namespace CatzTools
+namespace CatzTools.GameFlow.Editor
 {
     #region 場景流程 MiniMap
     /// <summary>
@@ -54,7 +55,11 @@ namespace CatzTools
         {
             if (_graphView?.BlueprintData?.nodes == null) return;
 
-            var nodes = _graphView.BlueprintData.nodes;
+            // MiniMap 只顯示場景流程相關節點（Start/Scene/End），過濾 PopCover
+            // （Cover 是 UI 覆蓋層，不屬於場景流程視覺，顯示在 MiniMap 會誤導）
+            var nodes = new List<SceneNode>();
+            foreach (var n in _graphView.BlueprintData.nodes)
+                if (n != null && n.nodeType != SceneNodeType.PopCover) nodes.Add(n);
             if (nodes.Count == 0) return;
 
             var painter = ctx.painter2D;
@@ -179,6 +184,8 @@ namespace CatzTools
 
             foreach (var node in nodes)
             {
+                // PopCover 不參與 MiniMap 邊界計算（不顯示於 MiniMap）
+                if (node == null || node.nodeType == SceneNodeType.PopCover) continue;
                 if (node.position.x < minX) minX = node.position.x;
                 if (node.position.y < minY) minY = node.position.y;
                 if (node.position.x > maxX) maxX = node.position.x;
@@ -233,20 +240,25 @@ namespace CatzTools
         }
 
         /// <summary>
-        /// 取得節點顏色（與 SceneFlowNode 一致）
+        /// 取得節點顏色（與 SceneFlowNode.ApplyNodeStyle 完全對齊）
         /// </summary>
         private Color GetNodeColor(SceneNode node)
         {
-            return node.nodeType switch
+            switch (node.nodeType)
             {
-                SceneNodeType.Start => new Color(0.2f, 0.6f, 0.3f),
-                SceneNodeType.End => new Color(0.6f, 0.2f, 0.2f),
-                _ => node.isStartNode
-                    ? new Color(0.2f, 0.5f, 0.5f)
-                    : node.sceneAsset != null
-                        ? new Color(0.2f, 0.4f, 0.7f)
-                        : new Color(0.6f, 0.3f, 0.2f)
-            };
+                case SceneNodeType.Start:
+                    return new Color(0.2f, 0.6f, 0.3f);   // 綠色
+                case SceneNodeType.End:
+                    return new Color(0.6f, 0.2f, 0.2f);   // 紅色
+                case SceneNodeType.PopCover:
+                    return new Color(0.5f, 0.2f, 0.6f);   // 紫色（Cover）— 之前漏此 case 導致 fallback 到紅橘
+                default:
+                    if (node.isStartNode)
+                        return new Color(0.2f, 0.5f, 0.5f);   // 青色（起始場景）
+                    return node.sceneAsset != null
+                        ? new Color(0.2f, 0.4f, 0.7f)         // 藍色（已連結）
+                        : new Color(0.6f, 0.3f, 0.2f);        // 橘色（未連結）
+            }
         }
 
         /// <summary>

@@ -3,17 +3,17 @@ Shader "CatzTools/SceneFlow/Shatter"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _PieceCount ("碎片密度", Range(3, 40)) = 12
-        _CrackWidth ("裂縫寬度", Range(0.005, 0.08)) = 0.025
-        _FlyStrength ("爆發力", Range(0, 2)) = 0.8
-        _Gravity ("重力", Range(0, 3)) = 1.5
-        _ShrinkAmount ("碎片縮小量", Range(0, 0.8)) = 0.3
-        _RotateStrength ("旋轉強度", Range(0, 5)) = 2.0
-        _Randomness ("隨機延遲", Range(0, 1)) = 0.3
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _PieceCount ("Piece Density", Range(3, 40)) = 12
+        _CrackWidth ("Crack Width", Range(0.005, 0.08)) = 0.025
+        _FlyStrength ("Fly Strength", Range(0, 2)) = 0.8
+        _Gravity ("Gravity", Range(0, 3)) = 1.5
+        _ShrinkAmount ("Shrink Amount", Range(0, 0.8)) = 0.3
+        _RotateStrength ("Rotate Strength", Range(0, 5)) = 2.0
+        _Randomness ("Randomness", Range(0, 1)) = 0.3
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

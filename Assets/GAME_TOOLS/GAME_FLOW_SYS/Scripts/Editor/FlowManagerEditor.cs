@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
+using CatzTools.GameFlow;
 
-namespace CatzTools
+namespace CatzTools.GameFlow.Editor
 {
     #region FlowManager 自訂 Inspector
     /// <summary>
@@ -44,9 +45,15 @@ namespace CatzTools
             GUI.enabled = true;
             serializedObject.Update();
 
-            // ── 標題 ──
-            EditorGUILayout.Space(4);
-            EditorGUILayout.LabelField("⚙ FlowManager", EditorStyles.boldLabel);
+            // ── 資訊面板 ──
+            string startScene = BlueprintData != null ? BlueprintData.startSceneName : "";
+            int nodeCount = BlueprintData?.nodes?.Count ?? 0;
+            string status = !string.IsNullOrEmpty(startScene)
+                ? $"{(SceneFlowLocale.IsZH ? "\u8d77\u59cb" : "Start")}: {startScene}  |  {nodeCount} {(SceneFlowLocale.IsZH ? "\u7bc0\u9ede" : "Nodes")}"
+                : (SceneFlowLocale.IsZH ? "\u672a\u8a2d\u5b9a\u8d77\u59cb\u5834\u666f" : "No start scene");
+            CatzTools.Editor.CatzEditorStyles.DrawInspectorInfoPanel(
+                "\u2699 FlowManager", GameFlowVersion.VERSION, status, !string.IsNullOrEmpty(startScene));
+
             EditorGUILayout.Space(4);
 
             // ── 起始場景（唯讀，從藍圖讀取）──
@@ -54,9 +61,8 @@ namespace CatzTools
 
             EditorGUILayout.Space(4);
 
-            // ── Debug Log 開關 ──
-            var debugProp = serializedObject.FindProperty("_showDebugLogs");
-            EditorGUILayout.PropertyField(debugProp, new GUIContent("顯示 Debug Log"));
+            // ── Log 狀態 ──
+            CatzTools.Editor.CatzEditorStyles.DrawLogChannelStatus("FlowManager");
 
             EditorGUILayout.Space(8);
 

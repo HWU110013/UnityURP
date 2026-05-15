@@ -1,24 +1,31 @@
 #if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
+using CatzTools.GameFlow;
 
-namespace CatzTools
+namespace CatzTools.GameFlow.Editor
 {
     #region ShaderPreset 資料結構
-    /// <summary>Shader 預設定義</summary>
+    /// <summary>Shader 預設定義（含中英雙語名稱）</summary>
     public readonly struct ShaderPreset
     {
         /// <summary>Shader 名稱（不含前綴）</summary>
         public readonly string ShaderName;
-        /// <summary>顯示名稱（中文）</summary>
-        public readonly string DisplayName;
+        /// <summary>中文顯示名稱</summary>
+        public readonly string NameZH;
+        /// <summary>英文顯示名稱</summary>
+        public readonly string NameEN;
         /// <summary>預設遮罩顏色</summary>
         public readonly Color DefaultColor;
 
-        public ShaderPreset(string shaderName, string displayName, Color defaultColor)
+        /// <summary>依目前語系回傳顯示名稱</summary>
+        public string DisplayName => SceneFlowLocale.IsZH ? NameZH : NameEN;
+
+        public ShaderPreset(string shaderName, string nameZH, string nameEN, Color defaultColor)
         {
             ShaderName = shaderName;
-            DisplayName = displayName;
+            NameZH = nameZH;
+            NameEN = nameEN;
             DefaultColor = defaultColor;
         }
     }
@@ -41,46 +48,63 @@ namespace CatzTools
         /// <summary>內建轉場 Shader 預設</summary>
         public static readonly ShaderPreset[] Presets =
         {
-            new("CircleWipe", "圓形擦除", Color.black),
-            new("DiamondWipe", "菱形擦除", Color.black),
-            new("SquareWipe", "方格擦除", Color.black),
-            new("Dissolve", "噪點溶解", Color.black),
-            new("Pixelate", "馬賽克", Color.black),
-            new("Blur", "模糊", Color.black),
-            new("Blinds", "百葉窗", Color.black),
-            new("Streak", "拉絲", Color.black),
-            new("Vortex", "漩渦", Color.black),
-            new("Zoom", "縮放", Color.black),
-            new("PageTurn", "翻頁", Color.black),
-            new("DualBlinds", "交叉百葉", Color.black),
-            new("ShapeWipe", "形狀擦除", Color.black),
-            new("Ripple", "水波紋", Color.black),
-            new("Glitch", "故障", Color.black),
-            new("CurtainImage", "圖片拉簾", Color.black),
-            new("RadialWipe", "時鐘擦除", Color.black),
-            new("InkSpread", "墨水暈染", Color.black),
-            new("WhipPan", "甩鏡", Color.black),
-            new("Scanline", "掃描線", Color.black),
-            new("Shatter", "碎裂", Color.black),
-            new("ColorDrain", "色彩抽離", Color.black),
-            new("Jelly", "果凍", Color.black),
-            new("Burn", "燃燒", Color.black),
-            new("TVOff", "老電視", Color.black),
-            new("Scroll", "捲軸", Color.black),
-            new("Fog", "霧氣", Color.black),
-            new("Kaleidoscope", "萬花筒", Color.black),
-            new("Raindrop", "雨滴", Color.black),
-            new("Mosaic", "馬賽克拼圖", Color.black),
-            new("DoubleExposure", "雙重曝光", Color.black),
-            new("Heartbeat", "心跳", Color.black),
-            new("WindBlow", "風吹", Color.black),
-            new("Prism", "稜鏡", Color.black),
-            new("ComicPanel", "漫畫格", Color.black),
-            new("MatrixRain", "矩陣雨", Color.black),
-            new("Sumi", "水墨", Color.black),
-            new("Flashbang", "閃光彈", Color.black),
+            new("CircleWipe",      "圓形擦除",   "Circle Wipe",      Color.black),
+            new("DiamondWipe",     "菱形擦除",   "Diamond Wipe",     Color.black),
+            new("SquareWipe",      "方格擦除",   "Square Wipe",      Color.black),
+            new("Dissolve",        "噪點溶解",   "Dissolve",         Color.black),
+            new("Pixelate",        "馬賽克",     "Pixelate",         Color.black),
+            new("Blur",            "模糊",       "Blur",             Color.black),
+            new("Blinds",          "百葉窗",     "Blinds",           Color.black),
+            new("Streak",          "拉絲",       "Streak",           Color.black),
+            new("Vortex",          "漩渦",       "Vortex",           Color.black),
+            new("Zoom",            "縮放",       "Zoom",             Color.black),
+            new("PageTurn",        "翻頁",       "Page Turn",        Color.black),
+            new("DualBlinds",      "交叉百葉",   "Dual Blinds",      Color.black),
+            new("ShapeWipe",       "形狀擦除",   "Shape Wipe",       Color.black),
+            new("Ripple",          "水波紋",     "Ripple",           Color.black),
+            new("Glitch",          "故障",       "Glitch",           Color.black),
+            new("CurtainImage",    "圖片拉簾",   "Curtain Image",    Color.black),
+            new("RadialWipe",      "時鐘擦除",   "Radial Wipe",      Color.black),
+            new("InkSpread",       "墨水暈染",   "Ink Spread",       Color.black),
+            new("WhipPan",         "甩鏡",       "Whip Pan",         Color.black),
+            new("Scanline",        "掃描線",     "Scanline",         Color.black),
+            new("Shatter",         "碎裂",       "Shatter",          Color.black),
+            new("ColorDrain",      "色彩抽離",   "Color Drain",      Color.black),
+            new("Jelly",           "果凍",       "Jelly",            Color.black),
+            new("Burn",            "燃燒",       "Burn",             Color.black),
+            new("TVOff",           "老電視",     "TV Off",           Color.black),
+            new("Scroll",          "捲軸",       "Scroll",           Color.black),
+            new("Fog",             "霧氣",       "Fog",              Color.black),
+            new("Kaleidoscope",    "萬花筒",     "Kaleidoscope",     Color.black),
+            new("Raindrop",        "雨滴",       "Raindrop",         Color.black),
+            new("Mosaic",          "馬賽克拼圖", "Mosaic",           Color.black),
+            new("DoubleExposure",  "雙重曝光",   "Double Exposure",  Color.black),
+            new("Heartbeat",       "心跳",       "Heartbeat",        Color.black),
+            new("WindBlow",        "風吹",       "Wind Blow",        Color.black),
+            new("Prism",           "稜鏡",       "Prism",            Color.black),
+            new("ComicPanel",      "漫畫格",     "Comic Panel",      Color.black),
+            new("MatrixRain",      "矩陣雨",     "Matrix Rain",      Color.black),
+            new("Sumi",            "水墨",       "Sumi",             Color.black),
+            new("Flashbang",       "閃光彈",     "Flashbang",        Color.black),
         };
         #endregion 預設定義
+
+        #region 反查顯示名稱
+        /// <summary>
+        /// 從 Material 名稱反查顯示名（依目前語系）。
+        /// 系統預設 → i18n 翻譯；自訂材質 → 直接用檔名。
+        /// </summary>
+        public static string GetDisplayName(Material mat)
+        {
+            if (mat == null) return SceneFlowLocale.EdgeNoMat;
+            string matName = mat.name.Replace("SF_", "");
+            foreach (var p in Presets)
+            {
+                if (p.ShaderName == matName) return p.DisplayName;
+            }
+            return matName; // 使用者自訂 Material，直接顯示原名
+        }
+        #endregion 反查顯示名稱
 
         #region 取得 Material
         /// <summary>
@@ -103,7 +127,7 @@ namespace CatzTools
             var shader = Shader.Find(ShaderPrefix + preset.ShaderName);
             if (shader == null)
             {
-                Debug.LogError($"[SceneFlow] 找不到 Shader：{ShaderPrefix}{preset.ShaderName}");
+                CatzLogger.LogError("FlowManager", $"[SceneFlow] Shader not found: {ShaderPrefix}{preset.ShaderName}");
                 return null;
             }
 
@@ -114,7 +138,7 @@ namespace CatzTools
 
             AssetDatabase.CreateAsset(mat, path);
             AssetDatabase.SaveAssets();
-            Debug.Log($"[SceneFlow] 已建立轉場 Material：{path}");
+            CatzLogger.Log("FlowManager", $"[SceneFlow] Created transition Material: {path}");
 
             return mat;
         }

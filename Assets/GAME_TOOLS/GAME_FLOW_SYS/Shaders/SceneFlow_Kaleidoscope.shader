@@ -3,13 +3,13 @@ Shader "CatzTools/SceneFlow/Kaleidoscope"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _Segments ("鏡射分割數", Range(2, 16)) = 6
-        _RotateSpeed ("旋轉速度", Range(0, 5)) = 1.5
-        _ZoomSpeed ("縮放速度", Range(0, 3)) = 1.0
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _Segments ("Segments", Range(2, 16)) = 6
+        _RotateSpeed ("Spin Speed", Range(0, 5)) = 1.5
+        _ZoomSpeed ("Zoom Speed", Range(0, 3)) = 1.0
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

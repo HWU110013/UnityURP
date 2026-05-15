@@ -34,10 +34,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _Angle: 0
-    - _BackShade: 0
-    - _CurlRadius: 0.1
+    - _BackShade: 0.3
+    - _CurlRadius: 0.08
     - _Progress: 0
-    - _ShadowWidth: 0
+    - _ShadowWidth: 0.05
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

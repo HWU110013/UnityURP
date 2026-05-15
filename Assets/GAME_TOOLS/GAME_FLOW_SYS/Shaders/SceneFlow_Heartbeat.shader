@@ -3,14 +3,14 @@ Shader "CatzTools/SceneFlow/Heartbeat"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _BeatCount ("心跳次數", Range(1, 8)) = 4
-        _DistortStrength ("變形強度", Range(0, 0.5)) = 0.2
-        _ZoomStrength ("放大強度", Range(0, 0.3)) = 0.1
-        _RedShift ("紅色偏移", Range(0, 0.5)) = 0.2
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _BeatCount ("Beat Count", Range(1, 8)) = 4
+        _DistortStrength ("Distort Strength", Range(0, 0.5)) = 0.2
+        _ZoomStrength ("Zoom Strength", Range(0, 0.3)) = 0.1
+        _RedShift ("Red Shift", Range(0, 0.5)) = 0.2
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

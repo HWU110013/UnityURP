@@ -3,13 +3,13 @@ Shader "CatzTools/SceneFlow/ColorDrain"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _DrainSpeed ("褪色速度", Range(0.5, 3)) = 1.2
-        _Contrast ("灰階對比度", Range(0, 2)) = 1
-        _Brightness ("灰階亮度偏移", Range(-0.5, 0.5)) = 0
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _DrainSpeed ("Drain Speed", Range(0.5, 3)) = 1.2
+        _Contrast ("Grayscale Contrast", Range(0, 2)) = 1
+        _Brightness ("Grayscale Brightness", Range(-0.5, 0.5)) = 0
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

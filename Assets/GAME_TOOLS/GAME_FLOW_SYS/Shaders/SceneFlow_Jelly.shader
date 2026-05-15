@@ -3,15 +3,15 @@ Shader "CatzTools/SceneFlow/Jelly"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _WobbleX ("水平晃動", Range(0, 0.15)) = 0.06
-        _WobbleY ("垂直晃動", Range(0, 0.15)) = 0.04
-        _Frequency ("晃動頻率", Range(1, 15)) = 5
-        _Speed ("晃動速度", Range(1, 20)) = 8
-        _Squash ("壓扁強度", Range(0, 0.5)) = 0.2
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _WobbleX ("Wobble X", Range(0, 0.15)) = 0.06
+        _WobbleY ("Wobble Y", Range(0, 0.15)) = 0.04
+        _Frequency ("Frequency", Range(1, 15)) = 5
+        _Speed ("Wobble Speed", Range(1, 20)) = 8
+        _Squash ("Squash", Range(0, 0.5)) = 0.2
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

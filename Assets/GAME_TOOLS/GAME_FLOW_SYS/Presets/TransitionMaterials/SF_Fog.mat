@@ -29,12 +29,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Density: 3
-    - _FlowSpeed: 0
+    - _Density: 1.2
+    - _FlowSpeed: 0.8
     - _LayerCount: 3
-    - _NoiseScale: 14.9375
+    - _NoiseScale: 4
     - _Progress: 0
-    - _Smoothness: 0.268125
+    - _Smoothness: 0.12
     m_Colors:
     - _Color: {r: 0.85, g: 0.88, b: 0.9, a: 1}
   m_BuildTextureStacks: []

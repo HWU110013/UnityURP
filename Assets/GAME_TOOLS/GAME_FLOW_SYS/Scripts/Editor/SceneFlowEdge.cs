@@ -2,8 +2,9 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
+using CatzTools.GameFlow;
 
-namespace CatzTools
+namespace CatzTools.GameFlow.Editor
 {
     #region 場景連線
     /// <summary>
@@ -15,31 +16,49 @@ namespace CatzTools
         public string EdgeDataId { get; set; }
 
         private Label _transitionLabel;
-        private bool _labelAdded;
 
         /// <summary>
-        /// 更新連線上顯示的轉場類型文字
+        /// 從父容器移除轉場標籤（刪除 Edge 前必須呼叫）
         /// </summary>
-        public void UpdateTransitionLabel(TransitionSettings t)
+        public void RemoveTransitionLabel()
         {
+            if (_transitionLabel?.parent != null)
+                _transitionLabel.parent.Remove(_transitionLabel);
+            _transitionLabel = null;
+        }
+
+        /// <summary>
+        /// 更新連線上顯示的轉場類型文字。
+        /// Hybrid 模型（v0.7.9b）：edge 使用場景預設時**不顯示文字**（避免誤解為 edge 自己設的），
+        /// 只有 <paramref name="useOverride"/> = true 時才顯示（此時 edge 自訂轉場，需標記清楚）。
+        /// </summary>
+        public void UpdateTransitionLabel(TransitionSettings t, bool useOverride)
+        {
+            EnsureLabel();
+
+            if (!useOverride)
+            {
+                // 走場景預設 → 線上不掛標籤（由兩端節點的設定決定，看節點 Inspector 即可）
+                _transitionLabel.style.display = DisplayStyle.None;
+                return;
+            }
+
             string text = "";
             if (t != null && t.type != TransitionType.None)
             {
                 text = t.type switch
                 {
-                    TransitionType.Fade => "淡入淡出",
-                    TransitionType.SlideLeft => "← 左滑",
-                    TransitionType.SlideRight => "右滑 →",
-                    TransitionType.SlideUp => "↑ 上滑",
-                    TransitionType.SlideDown => "↓ 下滑",
+                    TransitionType.Fade => SceneFlowLocale.EdgeFade,
+                    TransitionType.SlideLeft => SceneFlowLocale.EdgeSlideL,
+                    TransitionType.SlideRight => SceneFlowLocale.EdgeSlideR,
+                    TransitionType.SlideUp => SceneFlowLocale.EdgeSlideU,
+                    TransitionType.SlideDown => SceneFlowLocale.EdgeSlideD,
                     TransitionType.CustomShader when t.customMaterial != null =>
-                        t.customMaterial.name.Replace("SF_", ""),
-                    TransitionType.CustomShader => "Shader?",
+                        SceneFlowShaderPresets.GetDisplayName(t.customMaterial),
+                    TransitionType.CustomShader => SceneFlowLocale.EdgeNoMat,
                     _ => ""
                 };
             }
-
-            EnsureLabel();
 
             if (string.IsNullOrEmpty(text))
             {
@@ -47,8 +66,16 @@ namespace CatzTools
                 return;
             }
 
-            _transitionLabel.text = text;
+            // ✎ 前綴標示是「覆寫」的轉場
+            _transitionLabel.text = "\u270E " + text;
             _transitionLabel.style.display = DisplayStyle.Flex;
+        }
+
+        #region 標籤內部實作
+        public SceneFlowEdge()
+        {
+            // Edge 幾何變更時重新定位標籤
+            RegisterCallback<GeometryChangedEvent>(_ => PositionLabel());
         }
 
         private void EnsureLabel()
@@ -70,23 +97,18 @@ namespace CatzTools
             _transitionLabel.style.position = Position.Absolute;
             _transitionLabel.pickingMode = PickingMode.Ignore;
             _transitionLabel.style.display = DisplayStyle.None;
+
+            // 標籤是 Edge 的子元素，隨 Edge 生命週期自動管理
+            Add(_transitionLabel);
         }
 
         /// <summary>
-        /// Edge layout 完成後把標籤掛上去並定位
+        /// Edge layout 完成後定位標籤
         /// </summary>
         protected override void OnCustomStyleResolved(ICustomStyle style)
         {
             base.OnCustomStyleResolved(style);
             PositionLabel();
-        }
-
-        /// <summary>
-        /// 每次 Edge 幾何變更時重新定位標籤
-        /// </summary>
-        public SceneFlowEdge()
-        {
-            RegisterCallback<GeometryChangedEvent>(_ => PositionLabel());
         }
 
         private void PositionLabel()
@@ -95,26 +117,11 @@ namespace CatzTools
             if (_transitionLabel.style.display == DisplayStyle.None) return;
             if (output == null || input == null) return;
 
-            // 掛到 GraphView 的 contentViewContainer 上（跟隨縮放平移）
-            if (!_labelAdded)
-            {
-                var graphView = GetFirstAncestorOfType<GraphView>();
-                if (graphView == null) return;
-                graphView.contentViewContainer.Add(_transitionLabel);
-                _labelAdded = true;
-            }
+            // port 世界座標 → Edge 本地座標
+            var startLocal = this.WorldToLocal(output.GetGlobalCenter());
+            var endLocal = this.WorldToLocal(input.GetGlobalCenter());
 
-            // 直接用 port 的世界座標換算到 contentViewContainer 本地座標
-            var graphView2 = GetFirstAncestorOfType<GraphView>();
-            if (graphView2 == null) return;
-
-            var container = graphView2.contentViewContainer;
-            var startWorld = output.GetGlobalCenter();
-            var endWorld = input.GetGlobalCenter();
-            var startLocal = container.WorldToLocal(startWorld);
-            var endLocal = container.WorldToLocal(endWorld);
-
-            // 30% 位置
+            // 30% 位置（靠近起點端）
             var pos = Vector2.Lerp(startLocal, endLocal, 0.3f);
 
             float labelW = _transitionLabel.resolvedStyle.width;
@@ -126,6 +133,7 @@ namespace CatzTools
             _transitionLabel.style.left = pos.x - labelW * 0.5f;
             _transitionLabel.style.top = pos.y - labelH - 4;
         }
+        #endregion 標籤內部實作
     }
     #endregion 場景連線
 }

@@ -5,16 +5,16 @@ Shader "CatzTools/SceneFlow/TVOff"
 {
     Properties
     {
-        _Color ("背景色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _LinePhase ("橫線階段比例", Range(0.3, 0.8)) = 0.6
-        _LineBrightness ("橫線亮度", Range(0.5, 3)) = 1.5
-        _DotSize ("亮點大小", Range(0.005, 0.05)) = 0.02
-        _DotBrightness ("亮點亮度", Range(1, 5)) = 2.5
-        _Scanlines ("掃描線強度", Range(0, 1)) = 0.3
-        _StaticStrength ("雪花雜訊強度", Range(0, 1)) = 0.4
-        [Toggle] _Reverse ("反向（開機模式）", Float) = 0
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Background Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _LinePhase ("Line Phase", Range(0.3, 0.8)) = 0.6
+        _LineBrightness ("Line Brightness", Range(0.5, 3)) = 1.5
+        _DotSize ("Dot Size", Range(0.005, 0.05)) = 0.02
+        _DotBrightness ("Dot Brightness", Range(1, 5)) = 2.5
+        _Scanlines ("Scanline Strength", Range(0, 1)) = 0.3
+        _StaticStrength ("Static Strength", Range(0, 1)) = 0.4
+        [Toggle] _Reverse ("Reverse (power on)", Float) = 0
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

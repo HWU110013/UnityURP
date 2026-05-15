@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CatzTools
+namespace CatzTools.GameFlow
 {
     #region 場景轉場觸發基底
     /// <summary>
@@ -19,7 +19,6 @@ namespace CatzTools
 
         [Header("調試")]
         /// <summary>是否顯示 Debug Log</summary>
-        [SerializeField] private bool _showDebugLogs = true;
         #endregion 序列化欄位
 
         #region 私有變數
@@ -39,6 +38,13 @@ namespace CatzTools
         #endregion 公開屬性
 
         #region 觸發執行
+        /// <summary>
+        /// 公開觸發入口 — 供外部 UnityEvent 呼叫（例：INPUT_SYS 的 InputActionTrigger.onTriggered 拉線過來）。
+        /// 內部子類觸發條件滿足時也可呼叫此方法或 ExecuteTransition()。
+        /// 跨工具組合請以此方法為接點，避免在源碼層 using 其他工具命名空間。
+        /// </summary>
+        public void Transition() => ExecuteTransition();
+
         /// <summary>
         /// 執行轉場。子類在觸發條件滿足時呼叫此方法。
         /// </summary>
@@ -72,15 +78,15 @@ namespace CatzTools
         #endregion 觸發執行
 
         #region 工具
+        private const string LOG_CH = "FlowManager";
+
         protected void Log(string message, bool isWarning = false)
         {
-            if (!_showDebugLogs) return;
-
             string prefix = $"[{GetType().Name}:{_targetScene}]";
             if (isWarning)
-                Debug.LogWarning($"{prefix} {message}");
+                CatzLogger.LogWarning(LOG_CH, $"{prefix} {message}");
             else
-                Debug.Log($"{prefix} {message}");
+                CatzLogger.Log(LOG_CH, $"{prefix} {message}");
         }
         #endregion 工具
     }

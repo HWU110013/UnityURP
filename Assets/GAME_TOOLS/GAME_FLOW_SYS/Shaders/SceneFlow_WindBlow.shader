@@ -3,14 +3,14 @@ Shader "CatzTools/SceneFlow/WindBlow"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _WindAngle ("風向角度", Range(0, 360)) = 0
-        _WindStrength ("風力", Range(0, 0.3)) = 0.12
-        _NoiseScale ("粒子大小", Range(5, 40)) = 15
-        _Turbulence ("亂流", Range(0, 1)) = 0.5
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _WindAngle ("Wind Angle", Range(0, 360)) = 0
+        _WindStrength ("Wind Strength", Range(0, 0.3)) = 0.12
+        _NoiseScale ("Particle Size", Range(5, 40)) = 15
+        _Turbulence ("Turbulence", Range(0, 1)) = 0.5
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

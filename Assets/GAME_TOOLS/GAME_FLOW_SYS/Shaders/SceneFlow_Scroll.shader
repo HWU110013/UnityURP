@@ -3,11 +3,11 @@ Shader "CatzTools/SceneFlow/Scroll"
 {
     Properties
     {
-        _Color ("捲軸背面顏色", Color) = (0.82, 0.75, 0.58, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _CurlRadius ("捲曲半徑", Range(0.03, 0.2)) = 0.08
-        _ShadowWidth ("陰影寬度", Range(0, 0.15)) = 0.05
-        _BackShade ("背面暗度", Range(0, 0.6)) = 0.3
+        _Color ("Scroll Back Color", Color) = (0.82, 0.75, 0.58, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _CurlRadius ("Curl Radius", Range(0.03, 0.2)) = 0.08
+        _ShadowWidth ("Shadow Width", Range(0, 0.15)) = 0.05
+        _BackShade ("Back Shade", Range(0, 0.6)) = 0.3
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

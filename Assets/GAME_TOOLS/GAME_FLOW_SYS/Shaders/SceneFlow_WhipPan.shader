@@ -3,13 +3,13 @@ Shader "CatzTools/SceneFlow/WhipPan"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _BlurStrength ("模糊強度", Range(0, 0.15)) = 0.08
-        _Angle ("甩鏡角度", Range(0, 360)) = 0
-        _SampleCount ("取樣數（品質）", Range(4, 24)) = 12
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _BlurStrength ("Blur Strength", Range(0, 0.15)) = 0.08
+        _Angle ("Whip Angle", Range(0, 360)) = 0
+        _SampleCount ("Sample Count (quality)", Range(4, 24)) = 12
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

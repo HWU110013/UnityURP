@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using CatzTools.GameFlow;
 
-namespace CatzTools
+namespace CatzTools.GameFlow.Editor
 {
     #region SceneFlow 刪除保護
     /// <summary>
@@ -23,7 +24,8 @@ namespace CatzTools
         {
             typeof(FlowManager),
             typeof(TransitionController),
-            typeof(SceneEvent)
+            typeof(SceneEvent),
+            typeof(CoverController)
         };
 
         /// <summary>追蹤中的受保護物件 InstanceID → 名稱（用於 Undo 提示）</summary>
@@ -93,7 +95,7 @@ namespace CatzTools
 
                 // 第二層：Undo 還原
                 Undo.PerformUndo();
-                Debug.LogWarning(
+                CatzLogger.LogWarning("FlowManager", 
                     $"[SceneFlow] 已阻止刪除受保護物件「{objName}」。" +
                     "如需移除請透過 SceneFlow 編輯器操作。");
 

@@ -3,15 +3,15 @@ Shader "CatzTools/SceneFlow/Glitch"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _TearStrength ("撕裂強度", Range(0, 0.2)) = 0.06
-        _TearCount ("撕裂條數", Range(2, 30)) = 8
-        _RGBShift ("色偏強度", Range(0, 0.05)) = 0.015
-        _NoiseAmount ("噪點量", Range(0, 1)) = 0.3
-        _FlickerSpeed ("閃爍速度", Range(1, 20)) = 8
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _TearStrength ("Tear Strength", Range(0, 0.2)) = 0.06
+        _TearCount ("Tear Count", Range(2, 30)) = 8
+        _RGBShift ("RGB Shift", Range(0, 0.05)) = 0.015
+        _NoiseAmount ("Noise Amount", Range(0, 1)) = 0.3
+        _FlickerSpeed ("Flicker Speed", Range(1, 20)) = 8
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

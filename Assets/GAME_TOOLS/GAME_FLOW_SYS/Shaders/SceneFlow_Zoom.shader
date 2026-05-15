@@ -3,12 +3,12 @@ Shader "CatzTools/SceneFlow/Zoom"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _ZoomPower ("放大倍率", Range(1.5, 20)) = 5
-        _Smoothness ("邊緣柔化", Range(0, 0.5)) = 0.1
-        _BlurAmount ("模糊強度", Range(0, 1)) = 0.3
-        _Opacity ("不透明度", Range(0, 1)) = 1
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _ZoomPower ("Zoom Power", Range(1.5, 20)) = 5
+        _Smoothness ("Smoothness", Range(0, 0.5)) = 0.1
+        _BlurAmount ("Blur Strength", Range(0, 1)) = 0.3
+        _Opacity ("Opacity", Range(0, 1)) = 1
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
         [HideInInspector] _ScreenTex ("Screen Capture", 2D) = "white" {}
     }

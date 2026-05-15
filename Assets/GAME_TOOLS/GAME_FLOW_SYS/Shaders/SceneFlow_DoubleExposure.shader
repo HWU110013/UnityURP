@@ -3,13 +3,13 @@ Shader "CatzTools/SceneFlow/DoubleExposure"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _BlendMode ("混合模式", Range(0, 1)) = 0.5
-        _Brightness ("曝光亮度", Range(0.5, 3)) = 1.3
-        _Contrast ("對比度", Range(0.5, 2)) = 1.1
-        _Desaturate ("去飽和度", Range(0, 1)) = 0.3
-        _ScreenTex ("擷取畫面（舊場景）", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _BlendMode ("Blend Mode", Range(0, 1)) = 0.5
+        _Brightness ("Exposure Brightness", Range(0.5, 3)) = 1.3
+        _Contrast ("Contrast", Range(0.5, 2)) = 1.1
+        _Desaturate ("Desaturate", Range(0, 1)) = 0.3
+        _ScreenTex ("Screen Capture (old)", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

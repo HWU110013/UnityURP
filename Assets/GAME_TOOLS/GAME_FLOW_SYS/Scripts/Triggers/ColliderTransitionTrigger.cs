@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CatzTools
+namespace CatzTools.GameFlow
 {
     #region 碰撞轉場觸發器
     /// <summary>

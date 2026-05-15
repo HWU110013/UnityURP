@@ -3,13 +3,13 @@ Shader "CatzTools/SceneFlow/SquareWipe"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Smoothness ("邊緣柔化", Range(0, 1)) = 0.05
-        _Density ("密度（長邊分割數）", Range(1, 50)) = 1
-        _OffsetX ("水平偏移", Range(-0.5, 0.5)) = 0
-        _OffsetY ("垂直偏移", Range(-0.5, 0.5)) = 0
-        _RippleStrength ("波紋強度（0=關閉）", Range(0, 1)) = 0
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Smoothness ("Smoothness", Range(0, 1)) = 0.05
+        _Density ("Density (long side)", Range(1, 50)) = 1
+        _OffsetX ("Horizontal Offset", Range(-0.5, 0.5)) = 0
+        _OffsetY ("Vertical Offset", Range(-0.5, 0.5)) = 0
+        _RippleStrength ("Ripple Strength (0=off)", Range(0, 1)) = 0
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

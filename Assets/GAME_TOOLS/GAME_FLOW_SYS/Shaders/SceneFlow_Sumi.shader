@@ -3,14 +3,14 @@ Shader "CatzTools/SceneFlow/Sumi"
 {
     Properties
     {
-        _Color ("墨色", Color) = (0.02, 0.02, 0.03, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Smoothness ("邊緣柔化", Range(0, 0.15)) = 0.04
-        _BrushScale ("筆觸大小", Range(2, 15)) = 5
-        _BrushDetail ("筆觸細節", Range(1, 10)) = 4
-        _InkSpread ("暈染擴散", Range(0, 1)) = 0.5
-        _BrushAngle ("筆刷角度", Range(0, 360)) = 30
-        _EdgeWet ("邊緣濕潤", Range(0, 1)) = 0.6
+        _Color ("Ink Color", Color) = (0.02, 0.02, 0.03, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Smoothness ("Smoothness", Range(0, 0.15)) = 0.04
+        _BrushScale ("Brush Scale", Range(2, 15)) = 5
+        _BrushDetail ("Brush Detail", Range(1, 10)) = 4
+        _InkSpread ("Ink Spread", Range(0, 1)) = 0.5
+        _BrushAngle ("Brush Angle", Range(0, 360)) = 30
+        _EdgeWet ("Edge Wetness", Range(0, 1)) = 0.6
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

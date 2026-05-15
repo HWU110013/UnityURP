@@ -4,15 +4,15 @@ Shader "CatzTools/SceneFlow/CurtainImage"
 {
     Properties
     {
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _CurtainTexA ("拉簾 A（左/上）", 2D) = "black" {}
-        _CurtainTexB ("拉簾 B（右/下）", 2D) = "black" {}
-        _Angle ("開合角度", Range(0, 360)) = 0
-        _Gap ("中縫間距", Range(0, 0.05)) = 0
-        _Overlap ("合攏重疊量", Range(0, 0.15)) = 0
-        _ShadowWidth ("邊緣陰影寬度", Range(0, 0.1)) = 0.03
-        _ShadowStrength ("邊緣陰影強度", Range(0, 1)) = 0.5
-        [Toggle] _Compress ("壓縮模式（圖片隨簾寬縮放）", Float) = 0
+        _Progress ("Progress", Range(0, 1)) = 0
+        _CurtainTexA ("Curtain A (L/U)", 2D) = "black" {}
+        _CurtainTexB ("Curtain B (R/D)", 2D) = "black" {}
+        _Angle ("Angle", Range(0, 360)) = 0
+        _Gap ("Gap", Range(0, 0.05)) = 0
+        _Overlap ("Overlap", Range(0, 0.15)) = 0
+        _ShadowWidth ("Shadow Width", Range(0, 0.1)) = 0.03
+        _ShadowStrength ("Shadow Strength", Range(0, 1)) = 0.5
+        [Toggle] _Compress ("Compress Mode", Float) = 0
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

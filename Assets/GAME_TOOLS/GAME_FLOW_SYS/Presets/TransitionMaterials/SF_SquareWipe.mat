@@ -30,13 +30,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Density: 1
+    - _Density: 50
     - _OffsetX: 0
     - _OffsetY: 0
     - _Progress: 0
     - _Ripple: 100
     - _RippleSpread: 1
-    - _RippleStrength: 0
+    - _RippleStrength: 1
     - _Smoothness: 0.05
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}

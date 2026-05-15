@@ -3,13 +3,13 @@ Shader "CatzTools/SceneFlow/Fog"
 {
     Properties
     {
-        _Color ("霧色", Color) = (0.85, 0.88, 0.9, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Smoothness ("邊緣柔化", Range(0, 0.3)) = 0.12
-        _NoiseScale ("噪點縮放", Range(1, 15)) = 4
-        _FlowSpeed ("流動速度", Range(0, 3)) = 0.8
-        _Density ("霧濃度", Range(0.5, 3)) = 1.2
-        _LayerCount ("霧層數", Range(1, 4)) = 3
+        _Color ("Fog Color", Color) = (0.85, 0.88, 0.9, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Smoothness ("Smoothness", Range(0, 0.3)) = 0.12
+        _NoiseScale ("Noise Scale", Range(1, 15)) = 4
+        _FlowSpeed ("Flow Speed", Range(0, 3)) = 0.8
+        _Density ("Fog Density", Range(0.5, 3)) = 1.2
+        _LayerCount ("Layer Count", Range(1, 4)) = 3
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

@@ -29,12 +29,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CharFlicker: 0.6
+    - _CharFlicker: 1
     - _ColumnCount: 100
     - _Progress: 1
-    - _Randomness: 0.5
+    - _Randomness: 1
     - _Reverse: 0
-    - _Speed: 1
+    - _Speed: 10
     - _TrailLength: 0.8
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}

@@ -3,17 +3,17 @@ Shader "CatzTools/SceneFlow/Burn"
 {
     Properties
     {
-        _Color ("灰燼顏色", Color) = (0.05, 0.02, 0.01, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _FireColor1 ("火焰外緣色", Color) = (1, 0.3, 0, 1)
-        _FireColor2 ("火焰內焰色", Color) = (1, 0.85, 0.2, 1)
-        _FireWidth ("火焰邊寬度", Range(0.01, 0.2)) = 0.06
-        _IgnitionCount ("起火點數量", Range(1, 10)) = 3
-        _SpeedVariation ("速度差異", Range(0, 1)) = 0.4
-        _NoiseScale ("噪點縮放", Range(2, 20)) = 6
-        _Distortion ("蔓延不規則度", Range(0, 2)) = 1.2
-        _WarpStrength ("路徑扭曲強度", Range(0, 1.5)) = 0.8
-        _CharEdge ("焦化邊寬度", Range(0, 0.1)) = 0.03
+        _Color ("Ash Color", Color) = (0.05, 0.02, 0.01, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _FireColor1 ("Fire Outer Color", Color) = (1, 0.3, 0, 1)
+        _FireColor2 ("Fire Inner Color", Color) = (1, 0.85, 0.2, 1)
+        _FireWidth ("Fire Width", Range(0.01, 0.2)) = 0.06
+        _IgnitionCount ("Ignition Count", Range(1, 10)) = 3
+        _SpeedVariation ("Speed Variation", Range(0, 1)) = 0.4
+        _NoiseScale ("Noise Scale", Range(2, 20)) = 6
+        _Distortion ("Distortion", Range(0, 2)) = 1.2
+        _WarpStrength ("Warp Strength", Range(0, 1.5)) = 0.8
+        _CharEdge ("Char Edge", Range(0, 0.1)) = 0.03
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

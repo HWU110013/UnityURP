@@ -33,17 +33,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CrackWidth: 0.005
-    - _FlyStrength: 2
-    - _Gravity: 3
+    - _CrackWidth: 0.025
+    - _FlyStrength: 0.8
+    - _Gravity: 1.5
     - _GridX: 30
     - _GridY: 20
     - _Opacity: 1
-    - _PieceCount: 6.93125
+    - _PieceCount: 12
     - _Progress: 0
     - _Randomness: 0.3
     - _RotateStrength: 2
-    - _ShrinkAmount: 0
+    - _ShrinkAmount: 0.3
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

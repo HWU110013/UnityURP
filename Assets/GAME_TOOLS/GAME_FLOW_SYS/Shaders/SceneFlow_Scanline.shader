@@ -3,14 +3,14 @@ Shader "CatzTools/SceneFlow/Scanline"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _LineCount ("掃描線數", Range(50, 800)) = 300
-        _LineDarkness ("掃描線深度", Range(0, 1)) = 0.5
-        _FlickerSpeed ("閃爍速度", Range(1, 20)) = 8
-        _FlickerStrength ("閃爍強度", Range(0, 0.5)) = 0.15
-        _Distortion ("畫面扭曲", Range(0, 0.03)) = 0.008
-        _VignetteStrength ("暗角強度", Range(0, 2)) = 1
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _LineCount ("Line Count", Range(50, 800)) = 300
+        _LineDarkness ("Line Darkness", Range(0, 1)) = 0.5
+        _FlickerSpeed ("Flicker Speed", Range(1, 20)) = 8
+        _FlickerStrength ("Flicker Strength", Range(0, 0.5)) = 0.15
+        _Distortion ("Distortion", Range(0, 0.03)) = 0.008
+        _VignetteStrength ("Vignette Strength", Range(0, 2)) = 1
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

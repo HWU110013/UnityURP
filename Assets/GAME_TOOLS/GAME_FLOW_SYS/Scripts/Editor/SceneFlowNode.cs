@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using CatzTools.GameFlow;
 
-namespace CatzTools
+namespace CatzTools.GameFlow.Editor
 {
     #region 場景流程節點
     /// <summary>
@@ -22,9 +23,6 @@ namespace CatzTools
 
         /// <summary>輸出端口</summary>
         public Port OutputPort { get; private set; }
-
-        /// <summary>節點資料變更事件</summary>
-        public event Action<SceneFlowNode> OnDataChanged;
         #endregion 公開屬性
 
         #region 私有變數
@@ -64,6 +62,7 @@ namespace CatzTools
             // End 節點：只有入口
             // Scene 節點：入出都有
 
+            // 入口：Start 以外都有
             if (SceneData.nodeType != SceneNodeType.Start)
             {
                 InputPort = InstantiatePort(
@@ -71,19 +70,21 @@ namespace CatzTools
                     Direction.Input,
                     Port.Capacity.Multi,
                     typeof(bool));
-                InputPort.portName = "入";
+                InputPort.portName = SceneFlowLocale.PortIn;
                 InputPort.portColor = new Color(0.4f, 0.8f, 0.4f);
                 inputContainer.Add(InputPort);
             }
 
-            if (SceneData.nodeType != SceneNodeType.End)
+            // 出口：End 和 PopCover 沒有（Cover 不能連到其他節點）
+            if (SceneData.nodeType != SceneNodeType.End &&
+                SceneData.nodeType != SceneNodeType.PopCover)
             {
                 OutputPort = InstantiatePort(
                     Orientation.Horizontal,
                     Direction.Output,
                     Port.Capacity.Multi,
                     typeof(bool));
-                OutputPort.portName = "出";
+                OutputPort.portName = SceneFlowLocale.PortOut;
                 OutputPort.portColor = new Color(0.8f, 0.5f, 0.3f);
                 outputContainer.Add(OutputPort);
             }
@@ -178,6 +179,9 @@ namespace CatzTools
                 case SceneNodeType.End:
                     headerColor = new Color(0.6f, 0.2f, 0.2f); // 紅色
                     break;
+                case SceneNodeType.PopCover:
+                    headerColor = new Color(0.5f, 0.2f, 0.6f); // 紫色（Cover）
+                    break;
                 default: // Scene
                     if (SceneData.isStartNode)
                         headerColor = new Color(0.2f, 0.5f, 0.5f); // 青色（起始場景）
@@ -213,6 +217,7 @@ namespace CatzTools
             {
                 SceneNodeType.Start => "▶ ",
                 SceneNodeType.End => "■ ",
+                SceneNodeType.PopCover => "◻ ",
                 _ => SceneData.isStartNode ? "★ " : ""
             };
 
@@ -230,20 +235,34 @@ namespace CatzTools
 
             if (SceneData.nodeType == SceneNodeType.Start)
             {
-                _statusLabel.text = "遊戲啟動入口";
+                _statusLabel.text = SceneFlowLocale.NodeStartEntry;
                 _statusLabel.style.color = new Color(0.5f, 0.8f, 0.5f);
                 return;
             }
 
             if (SceneData.nodeType == SceneNodeType.End)
             {
-                _statusLabel.text = "流程終點";
+                _statusLabel.text = SceneFlowLocale.NodeEndPoint;
                 _statusLabel.style.color = new Color(0.7f, 0.5f, 0.5f);
                 return;
             }
 
+            if (SceneData.nodeType == SceneNodeType.PopCover)
+            {
+                bool hasCover = SceneData.coverSourceType == CoverSourceType.Prefab
+                    ? SceneData.coverPrefab != null
+                    : !string.IsNullOrEmpty(SceneData.coverSceneName);
+                string sourceLabel = SceneData.coverSourceType == CoverSourceType.Prefab
+                    ? SceneFlowLocale.CoverPrefab : SceneFlowLocale.CoverSceneAsset;
+                _statusLabel.text = hasCover ? $"✓ {sourceLabel}" : $"✗ {sourceLabel}";
+                _statusLabel.style.color = hasCover
+                    ? new Color(0.6f, 0.5f, 0.8f)
+                    : new Color(0.8f, 0.3f, 0.3f);
+                return;
+            }
+
             bool hasAsset = SceneData.sceneAsset != null;
-            _statusLabel.text = hasAsset ? "✓ 已連結" : "✗ 未連結場景資源";
+            _statusLabel.text = hasAsset ? SceneFlowLocale.InspLinked : SceneFlowLocale.InspUnlinked;
             _statusLabel.style.color = hasAsset
                 ? new Color(0.4f, 0.8f, 0.4f)
                 : new Color(0.8f, 0.3f, 0.3f);

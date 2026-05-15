@@ -3,12 +3,12 @@ Shader "CatzTools/SceneFlow/Streak"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Angle ("角度", Range(0, 360)) = 0
-        _Smoothness ("邊緣柔化", Range(0, 0.5)) = 0.1
-        _StreakDensity ("絲線密度", Range(1, 100)) = 30
-        _StreakStrength ("絲線強度", Range(0, 1)) = 0.5
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Angle ("Angle", Range(0, 360)) = 0
+        _Smoothness ("Smoothness", Range(0, 0.5)) = 0.1
+        _StreakDensity ("Streak Density", Range(1, 100)) = 30
+        _StreakStrength ("Streak Strength", Range(0, 1)) = 0.5
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

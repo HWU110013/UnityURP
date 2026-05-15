@@ -3,15 +3,15 @@ Shader "CatzTools/SceneFlow/Ripple"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _WaveCount ("波紋數量", Range(1, 30)) = 8
-        _WaveStrength ("扭曲強度", Range(0, 0.15)) = 0.04
-        _WaveSpeed ("波紋速度", Range(0, 10)) = 3
-        _CenterX ("中心 X", Range(0, 1)) = 0.5
-        _CenterY ("中心 Y", Range(0, 1)) = 0.5
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _WaveCount ("Wave Count", Range(1, 30)) = 8
+        _WaveStrength ("Distort Strength", Range(0, 0.15)) = 0.04
+        _WaveSpeed ("Wave Speed", Range(0, 10)) = 3
+        _CenterX ("Center X", Range(0, 1)) = 0.5
+        _CenterY ("Center Y", Range(0, 1)) = 0.5
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

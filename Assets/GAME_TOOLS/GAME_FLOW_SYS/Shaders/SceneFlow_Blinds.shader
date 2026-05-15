@@ -3,11 +3,11 @@ Shader "CatzTools/SceneFlow/Blinds"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Strips ("條紋數量", Range(2, 50)) = 8
-        _Smoothness ("邊緣柔化", Range(0, 0.5)) = 0.02
-        _Angle ("角度", Range(0, 360)) = 0
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Strips ("Strip Count", Range(2, 50)) = 8
+        _Smoothness ("Smoothness", Range(0, 0.5)) = 0.02
+        _Angle ("Angle", Range(0, 360)) = 0
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

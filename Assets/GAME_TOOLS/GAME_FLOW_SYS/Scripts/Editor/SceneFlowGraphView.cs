@@ -6,8 +6,9 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
+using CatzTools.GameFlow;
 
-namespace CatzTools
+namespace CatzTools.GameFlow.Editor
 {
     #region 場景流程圖
     /// <summary>
@@ -207,9 +208,11 @@ namespace CatzTools
                 EditorUtility.SetDirty(data);
             }
 
-            // 建立節點
+            // 建立節點（PopCover 不在圖表上顯示，由獨立面板管理）
             foreach (var nodeData in data.nodes)
             {
+                if (nodeData.nodeType == SceneNodeType.PopCover) continue;
+
                 var node = new SceneFlowNode(nodeData);
                 AddElement(node);
                 _nodeMap[nodeData.id] = node;
@@ -319,7 +322,7 @@ namespace CatzTools
                 if (clickedNode.SceneData.nodeType != SceneNodeType.End)
                 {
                     string openLabel = clickedNode.SceneData.sceneAsset != null
-                        ? "開啟場景" : "建立並開啟場景";
+                        ? SceneFlowLocale.CtxOpenScene : SceneFlowLocale.CtxCreateAndOpen;
                     evt.menu.AppendAction(openLabel, _ =>
                     {
                         OnRequestOpenScene?.Invoke(clickedNode.SceneData);
@@ -330,7 +333,7 @@ namespace CatzTools
                 if (clickedNode.SceneData.nodeType == SceneNodeType.Scene &&
                     !clickedNode.SceneData.isStartNode)
                 {
-                    evt.menu.AppendAction("設為起點", _ =>
+                    evt.menu.AppendAction(SceneFlowLocale.CtxSetStart, _ =>
                     {
                         OnRequestSetAsStart?.Invoke(clickedNode);
                     });
@@ -343,9 +346,9 @@ namespace CatzTools
                 // 點在空白處：新增節點
                 var localPos = contentViewContainer.WorldToLocal(evt.localMousePosition);
 
-                evt.menu.AppendAction("新增場景節點", _ =>
+                evt.menu.AppendAction(SceneFlowLocale.CtxAddScene, _ =>
                     OnRequestAddScene?.Invoke(localPos, SceneNodeType.Scene));
-                evt.menu.AppendAction("新增結束節點", _ =>
+                evt.menu.AppendAction(SceneFlowLocale.CtxAddEnd, _ =>
                     OnRequestAddScene?.Invoke(localPos, SceneNodeType.End));
                 evt.menu.AppendSeparator();
             }
@@ -369,8 +372,9 @@ namespace CatzTools
             evt.menu.AppendSeparator();
 
             // 刪除
-            evt.menu.AppendAction("刪除連線", _ =>
+            evt.menu.AppendAction(SceneFlowLocale.CtxDeleteEdge, _ =>
             {
+                edge.RemoveTransitionLabel();
                 edge.output?.Disconnect(edge);
                 edge.input?.Disconnect(edge);
                 RemoveElement(edge);
@@ -425,7 +429,7 @@ namespace CatzTools
 
             edge.output.Connect(edge);
             edge.input.Connect(edge);
-            edge.UpdateTransitionLabel(edgeData.transition);
+            edge.UpdateTransitionLabel(edgeData.transition, edgeData.useOverride);
             AddElement(edge);
 
             // 直接在 edge 上註冊點擊，確保選取時觸發屬性面板
@@ -588,7 +592,22 @@ namespace CatzTools
                 {
                     if (element is SceneFlowNode flowNode)
                     {
-                        // 移除相關連線
+                        // 找出所有與此節點相關的視覺連線，清理標籤後移除
+                        var relatedEdges = new System.Collections.Generic.List<SceneFlowEdge>();
+                        foreach (var ge in graphElements)
+                        {
+                            if (ge is SceneFlowEdge fe &&
+                                (fe.output?.node == flowNode || fe.input?.node == flowNode))
+                                relatedEdges.Add(fe);
+                        }
+                        foreach (var fe in relatedEdges)
+                        {
+                            fe.RemoveTransitionLabel();
+                            fe.output?.Disconnect(fe);
+                            fe.input?.Disconnect(fe);
+                            RemoveElement(fe);
+                        }
+
                         _blueprintData.edges.RemoveAll(e =>
                             e.source == flowNode.SceneData.id ||
                             e.target == flowNode.SceneData.id);
@@ -597,10 +616,13 @@ namespace CatzTools
                         _nodeMap.Remove(flowNode.SceneData.id);
                         dataChanged = true;
                     }
-                    else if (element is Edge edge)
+                    else if (element is SceneFlowEdge flowEdge)
                     {
-                        var sourceNode = edge.output?.node as SceneFlowNode;
-                        var targetNode = edge.input?.node as SceneFlowNode;
+                        // 清理轉場標籤
+                        flowEdge.RemoveTransitionLabel();
+
+                        var sourceNode = flowEdge.output?.node as SceneFlowNode;
+                        var targetNode = flowEdge.input?.node as SceneFlowNode;
 
                         if (sourceNode != null && targetNode != null)
                         {
@@ -632,7 +654,7 @@ namespace CatzTools
             var startNode = data.nodes.FirstOrDefault(n => n.nodeType == SceneNodeType.Start);
             if (startNode == null)
             {
-                startNode = new SceneNode("START")
+                startNode = new SceneNode("起始點")
                 {
                     nodeType = SceneNodeType.Start,
                     position = new Vector2(50, 200)
@@ -741,7 +763,7 @@ namespace CatzTools
                         var edgeData = _blueprintData.edges.Find(
                             e => e.id == flowEdge.EdgeDataId);
                         if (edgeData != null)
-                            flowEdge.UpdateTransitionLabel(edgeData.transition);
+                            flowEdge.UpdateTransitionLabel(edgeData.transition, edgeData.useOverride);
                     }
                 }
             }

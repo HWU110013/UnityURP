@@ -3,12 +3,12 @@ Shader "CatzTools/SceneFlow/Vortex"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Smoothness ("邊緣柔化", Range(0, 0.5)) = 0.05
-        _Arms ("螺旋臂數", Range(1, 12)) = 3
-        _Twist ("旋轉圈數", Range(0.5, 10)) = 2
-        [KeywordEnum(CW, CCW)] _DIR ("旋轉方向", Float) = 0
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Smoothness ("Smoothness", Range(0, 0.5)) = 0.05
+        _Arms ("Spiral Arms", Range(1, 12)) = 3
+        _Twist ("Twist Count", Range(0.5, 10)) = 2
+        [KeywordEnum(CW, CCW)] _DIR ("Direction", Float) = 0
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

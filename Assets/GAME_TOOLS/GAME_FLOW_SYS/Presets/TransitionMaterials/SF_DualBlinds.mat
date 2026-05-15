@@ -29,9 +29,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AngleA: 45
-    - _AngleB: 135
-    - _Progress: 0
+    - _AngleA: 60
+    - _AngleB: 300
+    - _Progress: 1
     - _Smoothness: 0.02
     - _StripsA: 50
     - _StripsB: 50

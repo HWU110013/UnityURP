@@ -2,8 +2,9 @@
 using System;
 using UnityEngine;
 using UnityEditor;
+using CatzTools.GameFlow;
 
-namespace CatzTools
+namespace CatzTools.GameFlow.Editor
 {
     #region 場景命名輸入視窗
     /// <summary>
@@ -24,7 +25,7 @@ namespace CatzTools
         public static void Show(Action<string> onConfirm, string defaultName = "")
         {
             var window = CreateInstance<SceneNameInputWindow>();
-            window.titleContent = new GUIContent("新增場景");
+            window.titleContent = new GUIContent(SceneFlowLocale.InputTitle);
             window._onConfirm = onConfirm;
             window._sceneName = string.IsNullOrEmpty(defaultName) ? "NewScene" : defaultName;
             window.minSize = new Vector2(320, 90);
@@ -39,7 +40,7 @@ namespace CatzTools
         {
             EditorGUILayout.Space(8);
 
-            EditorGUILayout.LabelField("場景名稱：", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(SceneFlowLocale.InputLabel, EditorStyles.boldLabel);
 
             GUI.SetNextControlName("SceneNameField");
             _sceneName = EditorGUILayout.TextField(_sceneName);
@@ -70,12 +71,12 @@ namespace CatzTools
                 Event.current.Use();
             }
 
-            if (GUILayout.Button("取消", GUILayout.Width(80)))
+            if (GUILayout.Button(SceneFlowLocale.DlgCancel, GUILayout.Width(80)))
             {
                 Close();
             }
 
-            if (GUILayout.Button("確認", GUILayout.Width(80)))
+            if (GUILayout.Button(SceneFlowLocale.InputConfirm, GUILayout.Width(80)))
             {
                 Confirm();
             }
@@ -94,7 +95,7 @@ namespace CatzTools
 
             if (string.IsNullOrEmpty(trimmed))
             {
-                EditorUtility.DisplayDialog("錯誤", "場景名稱不能為空！", "確定");
+                EditorUtility.DisplayDialog(SceneFlowLocale.DlgError, SceneFlowLocale.InputEmptyErr, SceneFlowLocale.DlgOk);
                 return;
             }
 
@@ -104,7 +105,7 @@ namespace CatzTools
             {
                 if (trimmed.Contains(c))
                 {
-                    EditorUtility.DisplayDialog("錯誤", $"場景名稱包含非法字元：{c}", "確定");
+                    EditorUtility.DisplayDialog(SceneFlowLocale.DlgError, SceneFlowLocale.InputInvalidChar(c), SceneFlowLocale.DlgOk);
                     return;
                 }
             }

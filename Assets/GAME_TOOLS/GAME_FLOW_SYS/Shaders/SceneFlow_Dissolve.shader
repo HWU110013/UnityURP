@@ -3,12 +3,12 @@ Shader "CatzTools/SceneFlow/Dissolve"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _NoiseScale ("噪點密度", Range(1, 50)) = 10
-        _Smoothness ("邊緣柔化", Range(0, 0.5)) = 0.05
-        _EdgeColor ("溶解邊緣色", Color) = (1, 0.5, 0, 1)
-        _EdgeWidth ("邊緣寬度", Range(0, 0.1)) = 0.03
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _NoiseScale ("Noise Density", Range(1, 50)) = 10
+        _Smoothness ("Smoothness", Range(0, 0.5)) = 0.05
+        _EdgeColor ("Dissolve Edge Color", Color) = (1, 0.5, 0, 1)
+        _EdgeWidth ("Edge Width", Range(0, 0.1)) = 0.03
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

@@ -3,13 +3,13 @@ Shader "CatzTools/SceneFlow/Mosaic"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _GridX ("水平磚數", Range(2, 30)) = 10
-        _GridY ("垂直磚數", Range(2, 20)) = 8
-        _GapWidth ("磚縫寬度", Range(0, 0.05)) = 0.008
-        _Randomness ("隨機延遲", Range(0, 1)) = 0.6
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _GridX ("Grid X", Range(2, 30)) = 10
+        _GridY ("Grid Y", Range(2, 20)) = 8
+        _GapWidth ("Gap Width", Range(0, 0.05)) = 0.008
+        _Randomness ("Randomness", Range(0, 1)) = 0.6
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

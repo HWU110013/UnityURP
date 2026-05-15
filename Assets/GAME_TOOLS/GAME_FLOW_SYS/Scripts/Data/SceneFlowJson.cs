@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace CatzTools
+namespace CatzTools.GameFlow
 {
     #region JSON 交換格式
     /// <summary>
@@ -80,7 +80,7 @@ namespace CatzTools
             var import = JsonUtility.FromJson<SceneFlowExportData>(json);
             if (import == null)
             {
-                Debug.LogError("JSON 解析失敗");
+                CatzLogger.LogError("FlowManager", "JSON 解析失敗");
                 return;
             }
 

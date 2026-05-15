@@ -3,15 +3,15 @@ Shader "CatzTools/SceneFlow/ComicPanel"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (1, 1, 1, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _GridX ("水平格數", Range(2, 8)) = 3
-        _GridY ("垂直格數", Range(2, 6)) = 2
-        _BorderWidth ("格線寬度", Range(0.005, 0.05)) = 0.015
-        _BorderColor ("格線顏色", Color) = (0, 0, 0, 1)
-        _Randomness ("隨機順序", Range(0, 1)) = 0.5
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (1, 1, 1, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _GridX ("Grid X", Range(2, 8)) = 3
+        _GridY ("Grid Y", Range(2, 6)) = 2
+        _BorderWidth ("Border Width", Range(0.005, 0.05)) = 0.015
+        _BorderColor ("Border Color", Color) = (0, 0, 0, 1)
+        _Randomness ("Randomness", Range(0, 1)) = 0.5
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

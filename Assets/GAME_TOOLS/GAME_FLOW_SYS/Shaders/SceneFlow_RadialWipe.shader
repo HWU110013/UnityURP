@@ -3,13 +3,13 @@ Shader "CatzTools/SceneFlow/RadialWipe"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Smoothness ("邊緣柔化", Range(0, 0.1)) = 0.02
-        _StartAngle ("起始角度", Range(0, 360)) = 90
-        [Enum(Clockwise,0,CounterClockwise,1)] _Direction ("方向", Float) = 0
-        _CenterX ("中心 X", Range(0, 1)) = 0.5
-        _CenterY ("中心 Y", Range(0, 1)) = 0.5
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Smoothness ("Smoothness", Range(0, 0.1)) = 0.02
+        _StartAngle ("Start Angle", Range(0, 360)) = 90
+        [Enum(Clockwise,0,CounterClockwise,1)] _Direction ("Direction", Float) = 0
+        _CenterX ("Center X", Range(0, 1)) = 0.5
+        _CenterY ("Center Y", Range(0, 1)) = 0.5
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

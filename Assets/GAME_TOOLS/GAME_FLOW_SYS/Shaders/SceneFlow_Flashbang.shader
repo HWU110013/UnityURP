@@ -3,15 +3,15 @@ Shader "CatzTools/SceneFlow/Flashbang"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _FlashColor ("閃光色", Color) = (1, 1, 0.95, 1)
-        _FlashPeak ("閃光峰值位置", Range(0.05, 0.4)) = 0.15
-        _FlashIntensity ("閃光強度", Range(1, 5)) = 3
-        _BlurAmount ("模糊量", Range(0, 0.05)) = 0.02
-        _Desaturate ("去飽和度", Range(0, 1)) = 0.7
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _FlashColor ("Flash Color", Color) = (1, 1, 0.95, 1)
+        _FlashPeak ("Flash Peak", Range(0.05, 0.4)) = 0.15
+        _FlashIntensity ("Flash Intensity", Range(1, 5)) = 3
+        _BlurAmount ("Blur Amount", Range(0, 0.05)) = 0.02
+        _Desaturate ("Desaturate", Range(0, 1)) = 0.7
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

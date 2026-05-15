@@ -3,13 +3,13 @@ Shader "CatzTools/SceneFlow/Raindrop"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Opacity ("不透明度", Range(0, 1)) = 1
-        _DropCount ("水滴密度", Range(3, 30)) = 12
-        _DistortStrength ("扭曲強度", Range(0, 0.1)) = 0.03
-        _BlurAmount ("模糊量", Range(0, 0.05)) = 0.015
-        _ScreenTex ("擷取畫面", 2D) = "white" {}
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Opacity ("Opacity", Range(0, 1)) = 1
+        _DropCount ("Drop Density", Range(3, 30)) = 12
+        _DistortStrength ("Distort Strength", Range(0, 0.1)) = 0.03
+        _BlurAmount ("Blur Amount", Range(0, 0.05)) = 0.015
+        _ScreenTex ("Screen Capture", 2D) = "white" {}
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

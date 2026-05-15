@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CatzTools
+namespace CatzTools.GameFlow
 {
     #region UI 按鈕轉場觸發器
     /// <summary>

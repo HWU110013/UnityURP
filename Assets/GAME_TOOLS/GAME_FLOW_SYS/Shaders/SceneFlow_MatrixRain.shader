@@ -3,16 +3,16 @@ Shader "CatzTools/SceneFlow/MatrixRain"
 {
     Properties
     {
-        _Color ("底色", Color) = (0, 0, 0, 1)
-        _RainColor ("雨色", Color) = (0, 0.8, 0.2, 1)
-        _GlowColor ("高光色", Color) = (0.5, 1, 0.6, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _ColumnCount ("列數", Range(10, 100)) = 40
-        _Speed ("落下速度", Range(1, 10)) = 4
-        _TrailLength ("尾跡長度", Range(0.1, 0.8)) = 0.35
-        _Randomness ("隨機延遲", Range(0, 1)) = 0.5
-        _CharFlicker ("字元閃爍", Range(0, 1)) = 0.6
-        [Toggle] _Reverse ("反向（開場模式）", Float) = 0
+        _Color ("Base Color", Color) = (0, 0, 0, 1)
+        _RainColor ("Rain Color", Color) = (0, 0.8, 0.2, 1)
+        _GlowColor ("Glow Color", Color) = (0.5, 1, 0.6, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _ColumnCount ("Columns", Range(10, 100)) = 40
+        _Speed ("Fall Speed", Range(1, 10)) = 4
+        _TrailLength ("Trail Length", Range(0.1, 0.8)) = 0.35
+        _Randomness ("Randomness", Range(0, 1)) = 0.5
+        _CharFlicker ("Char Flicker", Range(0, 1)) = 0.6
+        [Toggle] _Reverse ("Reverse (opening)", Float) = 0
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

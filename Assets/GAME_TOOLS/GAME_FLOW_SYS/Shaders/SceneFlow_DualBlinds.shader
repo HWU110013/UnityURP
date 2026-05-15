@@ -4,13 +4,13 @@ Shader "CatzTools/SceneFlow/DualBlinds"
 {
     Properties
     {
-        _Color ("遮罩顏色", Color) = (0, 0, 0, 1)
-        _Progress ("轉場進度", Range(0, 1)) = 0
-        _Smoothness ("邊緣柔化", Range(0, 0.5)) = 0.02
-        _StripsA ("A 條紋數量", Range(1, 50)) = 8
-        _AngleA ("A 角度", Range(0, 360)) = 0
-        _StripsB ("B 條紋數量（0=關閉）", Range(0, 50)) = 0
-        _AngleB ("B 角度", Range(0, 360)) = 90
+        _Color ("Mask Color", Color) = (0, 0, 0, 1)
+        _Progress ("Progress", Range(0, 1)) = 0
+        _Smoothness ("Smoothness", Range(0, 0.5)) = 0.02
+        _StripsA ("A Strip Count", Range(1, 50)) = 8
+        _AngleA ("A Angle", Range(0, 360)) = 0
+        _StripsB ("B Strip Count (0=off)", Range(0, 50)) = 0
+        _AngleB ("B Angle", Range(0, 360)) = 90
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
     }
 

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace CatzTools
+namespace CatzTools.GameFlow
 {
     #region 場景節點類型
     /// <summary>
@@ -20,9 +20,26 @@ namespace CatzTools
         /// <summary>結束節點（流程終點，不需場景檔）</summary>
         End,
         /// <summary>起始節點（固定，代表遊戲啟動入口，不可刪除）</summary>
-        Start
+        Start,
+        /// <summary>Cover 節點（彈出式 UI 面板，不切換場景）</summary>
+        PopCover
     }
     #endregion 場景節點類型
+
+    #region Cover 來源類型
+    /// <summary>
+    /// Cover 來源類型
+    /// </summary>
+    public enum CoverSourceType
+    {
+        /// <summary>預置物 — 實例化在 CoverCanvas 下</summary>
+        [UnityEngine.InspectorName("預置物")]
+        Prefab,
+        /// <summary>場景 — Additive 載入疊加在當前場景上</summary>
+        [UnityEngine.InspectorName("場景")]
+        Scene
+    }
+    #endregion Cover 來源類型
 
     #region 場景藍圖資料結構
     /// <summary>
@@ -46,6 +63,14 @@ namespace CatzTools
         /// </summary>
         [SerializeField]
         public string flowManagerScenePath = "Assets/Scenes/FlowManager.unity";
+
+        /// <summary>
+        /// FlowManager 相機的 Tag（在 Rebuild 時套用）。
+        /// 預設 "Untagged" — 避免跟遊戲場景的主相機（CameraRig / 自訂主相機）衝突。
+        /// 若遊戲中沒有其他相機（純測試場景），可設為 "MainCamera" 讓 `Camera.main` 有東西可回傳。
+        /// </summary>
+        [SerializeField]
+        public string flowManagerCameraTag = "Untagged";
         #endregion FlowManager（底層管理場景，不參與節點圖）
 
         #region 起始場景
@@ -55,6 +80,42 @@ namespace CatzTools
         [SerializeField]
         public string startSceneName = "";
         #endregion 起始場景
+
+        #region ServiceLocator 啟動清單
+        /// <summary>
+        /// （Legacy v0.x）Start 節點服務啟動清單純字串版本。新版改用 startServices；
+        /// 仍保留以便舊資料能無痛載入並自動 migration。
+        /// </summary>
+        [SerializeField]
+        public List<string> startServiceTypeNames = new List<string>();
+
+        /// <summary>
+        /// Start 節點要求 ServiceLocator 載入的服務清單（按順序）。
+        /// 每筆條目可選擇性覆寫 priority（不填 = 沿用 [AutoRegister] 屬性原值）。
+        /// 空清單 = 全自動反射發現（沿用舊行為）。
+        /// </summary>
+        [SerializeField]
+        public List<ServiceManifestEntry> startServices = new List<ServiceManifestEntry>();
+
+        /// <summary>
+        /// 取得 startServices；若是空的且 legacy startServiceTypeNames 有資料則自動 migrate。
+        /// </summary>
+        public List<ServiceManifestEntry> GetOrMigrateStartServices()
+        {
+            if (startServices == null) startServices = new List<ServiceManifestEntry>();
+            if (startServices.Count == 0 && startServiceTypeNames != null && startServiceTypeNames.Count > 0)
+            {
+                foreach (var name in startServiceTypeNames)
+                {
+                    if (string.IsNullOrEmpty(name)) continue;
+                    startServices.Add(new ServiceManifestEntry { typeName = name });
+                }
+                // 遷移完成，清掉 legacy 欄位防止反覆遷移
+                startServiceTypeNames.Clear();
+            }
+            return startServices;
+        }
+        #endregion ServiceLocator 啟動清單
 
         /// <summary>
         /// 場景節點列表（不含 FlowManager）
@@ -94,6 +155,19 @@ namespace CatzTools
             edges?.Where(e => e.target == nodeId).ToList() ?? new List<SceneEdge>();
 
         /// <summary>
+        /// 依名稱查找 PopCover 節點
+        /// </summary>
+        public SceneNode FindCoverByName(string coverName) =>
+            nodes?.FirstOrDefault(n => n.nodeType == SceneNodeType.PopCover && n.sceneName == coverName);
+
+        /// <summary>
+        /// 取得所有 Cover 節點（所有場景皆可呼叫任何 Cover）。
+        /// </summary>
+        public List<SceneNode> GetAvailableCovers(string sceneName = null) =>
+            nodes?.Where(n => n.nodeType == SceneNodeType.PopCover)
+                .ToList() ?? new List<SceneNode>();
+
+        /// <summary>
         /// 取得某節點可以轉場到的目標節點 ID（單向 source→target）
         /// </summary>
         public List<string> GetReachableTargets(string nodeId) =>
@@ -113,6 +187,28 @@ namespace CatzTools
                 node.connectedNodeIds = GetReachableTargets(node.id);
             }
         }
+
+        /// <summary>
+        /// Hybrid 轉場模型遷移（v0.7.8b）：既有 edge 若有設轉場但 useOverride=false，
+        /// 自動轉為 useOverride=true，保留原行為。一次性標記存於 <see cref="_hybridMigrated"/>。
+        /// </summary>
+        public void MigrateEdgesToHybridModel()
+        {
+            if (_hybridMigrated) return;
+            if (edges != null)
+            {
+                foreach (var e in edges)
+                {
+                    if (e == null || e.useOverride) continue;
+                    if (e.transition != null && e.transition.type != TransitionType.None)
+                        e.useOverride = true;
+                }
+            }
+            _hybridMigrated = true;
+        }
+
+        [SerializeField, HideInInspector]
+        private bool _hybridMigrated;
 
         /// <summary>
         /// 從 connectedNodeIds 建立 edges（遷移用）
@@ -202,6 +298,75 @@ namespace CatzTools
         public List<string> tags = new List<string>();
 
         /// <summary>
+        /// 進場轉場預設（任何 edge 進入此場景時的預設效果；edge 可勾選覆寫）
+        /// </summary>
+        [SerializeField]
+        public TransitionSettings defaultEnter = new TransitionSettings { type = TransitionType.Fade, duration = 1f, color = Color.black };
+
+        /// <summary>
+        /// 離場轉場預設（從此場景離開到任何 edge 的預設效果；edge 可勾選覆寫）
+        /// </summary>
+        [SerializeField]
+        public TransitionSettings defaultExit = new TransitionSettings { type = TransitionType.Fade, duration = 1f, color = Color.black };
+
+        #region PopCover 設定
+        /// <summary>Cover 來源類型（僅 PopCover 節點）</summary>
+        [SerializeField]
+        public CoverSourceType coverSourceType;
+
+        /// <summary>Cover Prefab 參考（CoverSourceType.Prefab 用）</summary>
+        [SerializeField]
+        public GameObject coverPrefab;
+
+#if UNITY_EDITOR
+        /// <summary>Cover 場景資源（CoverSourceType.Scene 用）</summary>
+        [SerializeField]
+        public SceneAsset coverSceneAsset;
+#endif
+
+        /// <summary>Cover 場景名稱（Runtime 用，由編輯器同步）</summary>
+        [SerializeField]
+        public string coverSceneName;
+
+        /// <summary>Cover 開啟動畫時長（秒），CanvasGroup 淡入</summary>
+        [SerializeField]
+        public float coverOpenDuration = 0.3f;
+
+        /// <summary>Cover 關閉動畫時長（秒），CanvasGroup 淡出</summary>
+        [SerializeField]
+        public float coverCloseDuration = 0.2f;
+
+        // Legacy（舊版轉場設定，保留避免序列化報錯，不再使用）
+        [SerializeField, HideInInspector]
+        public TransitionSettings coverOpenTransition;
+        [SerializeField, HideInInspector]
+        public TransitionSettings coverCloseTransition;
+
+        /// <summary>
+        /// 綁定的場景名稱清單（哪些場景可用此 Cover）。
+        /// 空清單 = 全域可用（所有場景都能開啟）。
+        /// </summary>
+        [SerializeField]
+        public List<string> boundSceneNames = new List<string>();
+
+        /// <summary>
+        /// Cover 排序值（Sibling Index）。值大的渲染在上面（前景）。
+        /// 僅 PopCover 節點使用。
+        /// </summary>
+        [SerializeField]
+        public int sortOrder;
+        #endregion PopCover 設定
+
+        #region 場景自動開啟 Cover
+        /// <summary>
+        /// 進入此場景時自動開啟的 Cover 名稱清單。
+        /// 僅 Scene 節點使用。
+        /// </summary>
+        [SerializeField]
+        public List<string> autoShowCovers = new List<string>();
+        #endregion 場景自動開啟 Cover
+
+        /// <summary>
         /// 建構函式
         /// </summary>
         public SceneNode()
@@ -229,18 +394,25 @@ namespace CatzTools
     public enum TransitionType
     {
         /// <summary>無轉場（直接切換）</summary>
+        [UnityEngine.InspectorName("無轉場")]
         None,
         /// <summary>淡入淡出（黑/白/自訂色）</summary>
+        [UnityEngine.InspectorName("淡入淡出")]
         Fade,
         /// <summary>從左滑入</summary>
+        [UnityEngine.InspectorName("← 左滑")]
         SlideLeft,
         /// <summary>從右滑入</summary>
+        [UnityEngine.InspectorName("右滑 →")]
         SlideRight,
         /// <summary>從上滑入</summary>
+        [UnityEngine.InspectorName("↑ 上滑")]
         SlideUp,
         /// <summary>從下滑入</summary>
+        [UnityEngine.InspectorName("↓ 下滑")]
         SlideDown,
         /// <summary>自訂 Shader 轉場</summary>
+        [UnityEngine.InspectorName("自訂 Shader")]
         CustomShader
     }
     #endregion 轉場類型
@@ -362,10 +534,17 @@ namespace CatzTools
         public string action;
 
         /// <summary>
-        /// 轉場設定
+        /// 轉場設定（當 <see cref="useOverride"/> = true 時才使用，否則套用兩端場景節點的 defaultExit + defaultEnter）
         /// </summary>
         [SerializeField]
         public TransitionSettings transition = new TransitionSettings();
+
+        /// <summary>
+        /// 是否覆寫場景預設轉場。
+        /// false（預設）= 走兩端場景節點的 defaultExit + defaultEnter；true = 使用本 edge 的 <see cref="transition"/>。
+        /// </summary>
+        [SerializeField]
+        public bool useOverride;
 
         /// <summary>
         /// 建構函式
@@ -385,4 +564,38 @@ namespace CatzTools
         }
     }
     #endregion 場景連線
+
+    #region ServiceLocator 啟動清單條目
+    /// <summary>
+    /// SceneBlueprintData.startServices 的單筆條目。
+    /// priorityOverride 為空字串 = 沿用 [AutoRegister] 屬性原值；
+    /// 有值 = 覆寫該服務的初始化優先序。
+    /// 用字串而非 int? 是因為 Unity JsonUtility / SerializeReference 對 nullable struct 支援不一致，
+    /// 用 string 最穩。空白 / 非數字皆視為「無覆寫」。
+    /// </summary>
+    [System.Serializable]
+    public class ServiceManifestEntry
+    {
+        /// <summary>服務類別 FullName（例：CatzTools.DataSys.DataManager）</summary>
+        [SerializeField]
+        public string typeName;
+
+        /// <summary>覆寫的 priority 值（空字串 = 不覆寫）</summary>
+        [SerializeField]
+        public string priorityOverride;
+
+        public ServiceManifestEntry() { }
+        public ServiceManifestEntry(string typeName) { this.typeName = typeName; }
+
+        /// <summary>取得有效 priority — 有 override 用 override，否則用 fallback（attribute 原值）</summary>
+        public int GetEffectivePriority(int fallback)
+        {
+            if (string.IsNullOrEmpty(priorityOverride)) return fallback;
+            return int.TryParse(priorityOverride, out var v) ? v : fallback;
+        }
+
+        public bool HasOverride => !string.IsNullOrEmpty(priorityOverride)
+                                  && int.TryParse(priorityOverride, out _);
+    }
+    #endregion ServiceLocator 啟動清單條目
 }
