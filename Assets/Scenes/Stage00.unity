@@ -31813,7 +31813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
-  m_Material: {fileID: 2100000, guid: e18b906bfd4a1cc478d5591870aeb8bc, type: 2}
+  m_Material: {fileID: 2100000, guid: a437f1b4b42eb9a4495ab08236c5738b, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -39336,6 +39336,11 @@ PrefabInstance:
 --- !u!4 &649357632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2478460516137454219, guid: 12f1edda0fde7624ca2da0454e0c987c, type: 3}
+  m_PrefabInstance: {fileID: 649357631}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &649357636 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1143532150876856032, guid: 12f1edda0fde7624ca2da0454e0c987c, type: 3}
   m_PrefabInstance: {fileID: 649357631}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &651471871
@@ -75712,7 +75717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 2100000, guid: e18b906bfd4a1cc478d5591870aeb8bc, type: 2}
+  m_Material: {fileID: 2100000, guid: a437f1b4b42eb9a4495ab08236c5738b, type: 2}
   m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -116233,14 +116238,34 @@ MonoBehaviour:
     m_Id: a1b5fd84-e138-4b9e-962f-6b6c0e38c3a1
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: e8c5faa2-298e-4cbe-a628-4633c26d8d64
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Interact
+      m_Flags: 0
     m_Flags: 0
   promptText: "\u6309 E \u4E92\u52D5"
   promptRoot: {fileID: 1319136242}
   promptLabel: {fileID: 522585137}
   onInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 649357636}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OpenDoor
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1824102231
 MonoBehaviour:
   m_ObjectHideFlags: 0
