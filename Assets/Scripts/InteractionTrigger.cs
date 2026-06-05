@@ -25,6 +25,9 @@ public class InteractionTrigger : MonoBehaviour
 
     [SerializeField, Tooltip("提示文字，例如：按 E 互動")]
     private string promptText = "按 E 互動";
+
+    [SerializeField, Tooltip("自動觸發")]
+    private bool autoTriggerEvent;
     #endregion 基本設定
 
     #region 提示 UI
@@ -66,7 +69,8 @@ public class InteractionTrigger : MonoBehaviour
         if (!other.CompareTag(playerTag)) return;
 
         isPlayerInside = true;
-        SetPromptVisible(true);
+        if (autoTriggerEvent) onInteract?.Invoke();
+        else SetPromptVisible(true);
     }
 
     private void OnTriggerExit(Collider other)
